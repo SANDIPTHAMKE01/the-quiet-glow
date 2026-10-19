@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Cart</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="assets/products.css">
+
+        <style>
+        .cart-page { max-width: 1000px; margin: auto; padding: 55px 5%; }
+        .cart-page h1 { font: 42px 'Playfair Display', serif; }
+        .cart-item { display: flex; gap: 20px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--border); }
+        .cart-item img { width: 100px; height: 110px; object-fit: cover; }
+        .cart-details { flex: 1; }
+        .cart-details h3 { font: 21px 'Playfair Display', serif; }
+        .cart-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .cart-actions button, .checkout-btn { padding: 8px 12px; border: 1px solid var(--border); background: var(--card); color: var(--brown); cursor: pointer; }
+        .remove-btn { color: var(--terracotta) !important; }
+        .cart-total { text-align: right; padding-top: 25px; }
+        .checkout-btn { background: var(--brown); color: white; padding: 13px 25px; border: none; margin-top: 15px; }
+        .back-link { color: var(--terracotta); text-decoration: none; display: inline-block; margin: 20px 0; }
+        @media(max-width: 500px) { .cart-item { align-items: flex-start; gap: 12px; } .cart-item img { width: 78px; height: 95px; } }
+    </style>
+    </head>
+    <body>
+        <main class="cart-page">
+            <p class="eyebrow">YOUR LITTLE COLLECTION</p>
+            <h1>Your Cart</h1>
+            <a class="back-link" href="products.html">← Continue shopping</a>
+
+            <div id="cart-items"></div>
+            <div class="cart-total" id="cart-total"></div>
+        </main>
+
+        <script src="assets/products.js"></script>
+        <script>
+        function renderCart() {
+            const cart = getStored(CART_KEY);
+            const container = document.getElementById("cart-items");
+            const totalBox = document.getElementById("cart-total");
+
+            if (!cart.length) {
+                container.innerHTML = "<p>Your cart is waiting for something beautiful.</p>";
+                totalBox.innerHTML = "";
+                return;
+            }
+
+            container.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return "";
+
+                return `
+                    <div class="cart-item">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="cart-details">
+                            <h3>${product.name}</h3>
+                            <p>${money(product.price)}</p>
+                            <div class="cart-actions">
+                                <button data-qty="${product.id}" data-change="-1" aria-label="Decrease quantity">−</button>
+                                <span>${item.quantity}</span>
+                                <button data-qty="${product.id}" data-change="1" aria-label="Increase quantity">+</button>
+                                <button class="remove-btn" data-remove="${product.id}">Remove</button>
+                            </div>
+                        </div>
+                    </div>`;
+            }).join("");
+
+            const total = cart.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.id);
+                return sum + (product ? product.price * item.quantity : 0);
+            }, 0);
+
+            totalBox.innerHTML = `
+                <h3>Total: ${money(total)}</h3>
+                <button class="checkout-btn" id="checkout-btn">Continue to Checkout →</button>
+                <p style="color:var(--muted);font-size:13px;">Shipping and payment can be added at checkout.</p>`;
+        }
+
+        document.addEventListener("click", function(event) {
+            const qtyButton = event.target.closest("[data-qty]");
+            const removeButton = event.target.closest("[data-remove]");
+
+            if (qtyButton) {
+                const id = Number(qtyButton.dataset.qty);
+                const change = Number(qtyButton.dataset.change);
+                let cart = getStored(CART_KEY);
+                const item = cart.find(p => p.id === id);
+
+                if (item) item.quantity += change;
+                cart = cart.filter(p => p.quantity > 0);
+                saveStored(CART_KEY, cart);
+                renderCart();
+            }
+
+            if (removeButton) {
+                const id = Number(removeButton.dataset.remove);
+                const cart = getStored(CART_KEY).filter(p => p.id !== id);
+                saveStored(CART_KEY, cart);
+                renderCart();
+            }
+
+           if (event.target.closest("#checkout-btn")) {
+            if (confirm("Want to confirm your order?")) {
+        alert("Order confirmed successfully!");
+    } else {
+        alert("Order was not confirmed.");
+    }
+}
+        });
+
+        renderCart();
+    </script>
+    </body>
+</html>

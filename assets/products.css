@@ -1,0 +1,159 @@
+
+:root {
+    --cream: #F7F2EA;
+    --card: #FFFCF7;
+    --brown: #49372B;
+    --terracotta: #A65F43;
+    --muted: #857568;
+    --border: #E8DED2;
+}
+
+
+.shop-heading {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.eyebrow {
+    color: var(--terracotta);
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 600;
+}
+
+.shop-heading h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 400;
+    margin: 15px 0;
+}
+
+.shop-heading h1 em {
+    color: var(--terracotta);
+}
+
+.shop-heading > p:last-child {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.shop-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.wishlist-link {
+    color: var(--brown);
+    text-decoration: none;
+}
+
+.wishlist-link:hover {
+    color: var(--terracotta);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 30px 20px;
+}
+
+.product-card {
+    min-width: 0;
+}
+
+.product-image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #EDE4D8;
+    aspect-ratio: 4 / 5;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.045);
+}
+
+.product-category {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    padding: 6px 10px;
+    background: rgba(255, 252, 247, 0.92);
+    color: var(--brown);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.heart-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--brown);
+    font-size: 23px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.heart-btn:hover,
+.heart-btn.liked {
+    color: var(--terracotta);
+}
+
+.product-info {
+    padding: 16px 2px;
+}
+
+.product-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    margin: 0 0 8px;
+}
+
+.product-description {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+.product-price {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.add-cart-btn {
+    width: 100%;
+    padding: 12px 10px;
+    background: transparent;
+    color: var(--brown);
+    border: 1px solid #B9A797;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.add-cart-btn:hover {
+    background: var(--brown);
+    color: white;
+    border-color: var(--brown);
+}

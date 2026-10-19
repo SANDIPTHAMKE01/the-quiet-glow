@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/products.css">
+    <style>
+        .wishlist-page { max-width: 1400px; margin: auto; padding: 55px 5%; }
+        .wishlist-page h1 { font: 42px 'Playfair Display', serif; }
+        .back-link { display: inline-block; margin: 20px 0; color: var(--terracotta); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <main class="wishlist-page">
+        <p class="eyebrow">YOUR FAVOURITES</p>
+        <h1>Things you love. ♡</h1>
+        <a class="back-link" href="products.html">← Continue shopping</a>
+        <div class="product-grid" id="product-grid"></div>
+        <p id="empty-wishlist" style="color:var(--muted);"></p>
+    </main>
+
+    <script src="assets/products.js"></script>
+    <script>
+        // Override the product rendering for the wishlist page.
+        renderWishlist = function() {
+            const wishlist = getStored(WISHLIST_KEY);
+            const grid = document.getElementById("product-grid");
+            const empty = document.getElementById("empty-wishlist");
+
+            const savedProducts = products.filter(p => wishlist.includes(p.id));
+
+            empty.textContent = savedProducts.length
+                ? ""
+                : "Your wishlist is empty. Save a few pieces you love.";
+
+            grid.innerHTML = savedProducts.map(product => `
+                <article class="product-card">
+                    <div class="product-image-wrap">
+                        <img class="product-image" src="${product.image}" alt="${product.name}">
+                        <button class="heart-btn liked" data-heart="${product.id}" aria-label="Remove ${product.name} from wishlist">♥</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <p class="product-price">${money(product.price)}</p>
+                        <button class="add-cart-btn" data-cart="${product.id}">Add to Cart →</button>
+                    </div>
+                </article>
+            `).join("");
+        };
+
+        renderWishlist();
+    </script>
+</body>
+</html>

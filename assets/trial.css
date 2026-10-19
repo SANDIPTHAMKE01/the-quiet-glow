@@ -1,0 +1,105 @@
+#navbar {
+    background-color: transparent;
+    position: fixed;
+    width: 100%;
+}
+
+#logo {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'capriola', Times New Roman, Times, serif;
+    color: #10003f;
+}
+
+.hero {
+    height: 100vh;
+    background-image: url("images/c3.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+}
+
+#hero-section {
+    font-size: 65px;
+    color: #fcfbff;
+    width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 50% 0% 50% 10%;
+    font-weight: bold;
+    text-align: left;
+}
+
+.hero-content p {
+    font-size: 20px;
+    color: #bdccca;
+}
+
+#explore-btn {
+    color: #fff;
+    font-size: 20px;
+    /* background-color: #ffffff; */
+    border: 2px solid #ffffff00;
+}
+
+.card {
+    background-color: rgb(255, 254, 254);
+    margin: 5% 5%;
+    max-width: 320px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.footer {
+    background-color: #000;
+    color: #bebcbc;
+    padding: 35px 0 15px;
+}
+
+
+
+.footer a {
+    text-decoration: none;
+    color: #bebcbc;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    color: #e75480;
+}
+
+.social-icons a {
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+.footer hr {
+    border-color: #ddd;
+}
+
+.container h4 {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: "Isometra", Times New Roman, Times, serif;
+    color: #fafafa;
+}
+
+
+/*
+.hero-content button {
+    padding: 12px 25px;
+    background-color: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+} */
